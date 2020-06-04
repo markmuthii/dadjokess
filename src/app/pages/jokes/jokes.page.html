@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Dad Jokes</ion-title>
+    <ion-buttons slot="end" (click)="toogleTheme()">
+      <ion-icon *ngIf="!isDark" name="moon-outline"></ion-icon>
+      <ion-icon *ngIf="isDark" name="sunny-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="sort-container">
+    <div id="jokes-cats" class="scroll" scrollX="true">
+      <span class="joke-cat active" id="all">All</span>
+      <!-- <span class="joke-cat" id="fav">Favourite</span> -->
+      <span class="joke-cat" id="kid">Kids</span>
+      <span class="joke-cat" id="wife">Wife</span>
+      <span class="joke-cat" id="school">School</span>
+      <span class="joke-cat" id="cat">Cats</span>
+      <span class="joke-cat" id="dog">Dogs</span>
+      <span class="joke-cat" id="work">Work</span>
+      <span class="joke-cat" id="food">Food</span>
+    </div>
+  </div>
+
+  <div class="jokes">
+    <p class="ion-text-center" *ngIf="errorExists">
+      There was an error fetching the jokes. Please try again later.
+    </p>
+
+    <ion-list *ngIf="!isSearching">
+      <ion-item *ngFor="let joke of jokes">
+        <p>
+          {{ joke.joke }}
+        </p>
+        <ion-button slot="end" fill="clear">
+          <ion-icon name="heart-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="isSearching">
+      <ion-item *ngFor="let i of [1, 2, 3, 4, 5, 6]">
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
+          </p>
+          <p *ngIf="i % 2 == 0">
+            <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+          </p>
+          <p *ngIf="i % 4 == 0">
+            <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+          </p>
+        </ion-label>
+        <ion-thumbnail slot="end">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

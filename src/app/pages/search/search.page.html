@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar
+      animated
+      showCancelButton="focus"
+      placeholder="Search dad jokes eg baby"
+      inputmode="search"
+      type="text"
+      (ionChange)="searchForJokes()"
+      [(ngModel)]="searchTerm"
+      debounce="800"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="jokes">
+    <p class="ion-text-center" *ngIf="searchTerm.length === 0 && !isSearching">
+      Nothing to show. Use the search bar above.
+    </p>
+
+    <p class="ion-text-center" *ngIf="errorExists && searchTerm.length !== 0">
+      There was an error fetching the jokes. Please try again later.
+    </p>
+
+    <p
+      class="ion-text-center"
+      *ngIf="searchTerm.length > 0 && jokes.length === 0 && !isSearching && !errorExists"
+    >
+      Could not find jokes with that search term. Please try something else.
+    </p>
+
+    <ion-list *ngIf="!isSearching && jokes.length > 0">
+      <ion-item *ngFor="let joke of jokes">
+        <p>
+          {{ joke.joke }}
+        </p>
+        <ion-button slot="end" fill="clear">
+          <ion-icon name="heart-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="isSearching">
+      <ion-item *ngFor="let i of [1, 2, 3, 4, 5, 6]">
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
+          </p>
+          <p *ngIf="i % 2 == 0">
+            <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+          </p>
+          <p *ngIf="i % 4 == 0">
+            <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+          </p>
+        </ion-label>
+        <ion-thumbnail slot="end">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,5 +1,7 @@
 {
   "name": "dadjokesapp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
